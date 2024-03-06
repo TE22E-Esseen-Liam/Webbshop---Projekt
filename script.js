@@ -1,42 +1,37 @@
-function addToCart(product) {
+const products = [
+    { id: 1, name: "Lifting straps", price: 22.5 },
+    { id: 2, name: "Figure 8 Straps", price: 19.9 },
+    { id: 3, name: "Creatine", price: 19.9 },
+    { id: 4, name: "Protein Powder", price: 29.9 },
+    { id: 5, name: "Pre workout", price: 24.9 },
+    { id: 6, name: "Lifting Hooks", price: 24.9 }
+  ];
+  
+  function addToCart(product) {
+    
     const cart = document.getElementById('cart');
     const item = document.createElement('li');
-    item.innerHTML = `
-      <div class="item">
-        <span>${product.name}</span>
-        <span>$${product.price.toFixed(2)}</span>
-      </div>
-    `;
+
+    const itemName = document.createElement('span');
+    const itemPrice = document.createElement('span');
+    itemPrice.textContent = '$' + product.price.toFixed(2); //2 = number of decimals
+    item.appendChild(itemName);
+    item.appendChild(itemPrice);
     cart.appendChild(item);
-}
-
-// Function to handle adding products to the cart
-function handleAddToCartClick(product) {
-    addToCart(product);
-    alert(`Added ${product.name} to the cart!`);
-}
-
-// Add products to cart on page load (just for demonstration)
-window.onload = function() {
-    const products = [
-        { id: 1, name: "Lifting straps", price: 225 },
-        { id: 2, name: "Figure 8 Straps", price: 199 },
-        { id: 3, name: "Creatine", price: 199 },
-        { id: 4, name: "Protein Powder", price: 299 },
-        { id: 5, name: "Pre workout", price: 249 },
-        { id: 6, name: "Lifting Hooks", price: 249 }
-    ];
-
+  }
+  
+  window.onload = function() {
     const productsList = document.getElementById('products');
     products.forEach(product => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${product.name} - $${product.price.toFixed(2)}`;
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Add to Cart';
-        addButton.onclick = function() {
-            handleAddToCartClick(product);
-        };
-        listItem.appendChild(addButton);
-        productsList.appendChild(listItem);
+      const listItem = document.createElement('li');
+      listItem.textContent = product.name + ' - $' + product.price.toFixed(2);
+      const addButton = document.createElement('button');
+      addButton.textContent = 'Add to Cart';
+      addButton.onclick = function() {
+        addToCart(product);
+      };
+
+      listItem.appendChild(addButton); //add item to checkout
+      productsList.appendChild(listItem);
     });
-};
+  };
